@@ -955,7 +955,7 @@ const UserInfoForm = ({ onSubmit, onBack }) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyKVpT1goIoymf2reDW_a5zs0ZfmQ1CdVEqCWzXUWWqSX-W3kRvjkdYZpiQp13cEScm/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzlK48p9oZf2f8Y0l437bU9cproU3f3y1Pm8Y8tfHnMxfXMVKbx2cSQNfqu0t7Un23b/exec';
     
     fetch(scriptURL, {
       method: 'POST',
