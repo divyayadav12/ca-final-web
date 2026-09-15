@@ -22,10 +22,10 @@ const QUESTIONS = [
     type: 'matrix',
     icon: BookOpen,
     options: [
-      { text: '< 40%', value: 1 },
-      { text: '40 - 70%', value: 2 },
-      { text: '70 - 90%', value: 3 },
-      { text: '90%+', value: 4 }
+      { text: 'D (Needs Improvement 🔴)', value: 1 },
+      { text: 'C (Average)', value: 2 },
+      { text: 'B (Good / Better)', value: 3 },
+      { text: 'A (Excellent 🟢)', value: 4 }
     ],
     quote: "Real students face gaps. Winners fix them."
   },
@@ -37,10 +37,10 @@ const QUESTIONS = [
     type: 'matrix',
     icon: RefreshCw,
     options: [
-      { text: 'No Revision', value: 1 },
-      { text: '1st Revision', value: 2 },
-      { text: '2nd Revision', value: 3 },
-      { text: '2+ Revisions', value: 4 }
+      { text: 'D (Needs Improvement 🔴)', value: 1 },
+      { text: 'C (Average)', value: 2 },
+      { text: 'B (Good / Better)', value: 3 },
+      { text: 'A (Excellent 🟢)', value: 4 }
     ],
     quote: "Progress is a result of honest self-assessment, not wishful thinking."
   },
@@ -52,11 +52,10 @@ const QUESTIONS = [
     type: 'matrix',
     icon: BarChart2,
     options: [
-      { text: '60+', value: 4 },
-      { text: '50-59', value: 3 },
-      { text: '40-49', value: 2 },
-      { text: 'Below 40', value: 1 },
-      { text: 'Not Attempted', value: 0 }
+      { text: 'D (Needs Improvement 🔴)', value: 1 },
+      { text: 'C (Average)', value: 2 },
+      { text: 'B (Good / Better)', value: 3 },
+      { text: 'A (Excellent 🟢)', value: 4 }
     ],
     quote: "Tests don't define you. They show you what to work on."
   },
@@ -68,10 +67,10 @@ const QUESTIONS = [
     type: 'matrix',
     icon: AlertCircle,
     options: [
-      { text: 'Conceptual', value: 1 },
-      { text: 'Calculation', value: 2 },
-      { text: 'Presentation', value: 3 },
-      { text: 'Time Mgmt', value: 4 }
+      { text: 'D (Needs Improvement 🔴)', value: 1 },
+      { text: 'C (Average)', value: 2 },
+      { text: 'B (Good / Better)', value: 3 },
+      { text: 'A (Excellent 🟢)', value: 4 }
     ],
     quote: "Identifying the leak is the first step to fixing the pipe."
   },
@@ -83,10 +82,10 @@ const QUESTIONS = [
     type: 'matrix',
     icon: FileText,
     options: [
-      { text: 'Not Started', value: 1 },
-      { text: 'Some Done', value: 2 },
-      { text: 'Mostly Done', value: 3 },
-      { text: 'Completed', value: 4 }
+      { text: 'D (Needs Improvement 🔴)', value: 1 },
+      { text: 'C (Average)', value: 2 },
+      { text: 'B (Good / Better)', value: 3 },
+      { text: 'A (Excellent 🟢)', value: 4 }
     ],
     quote: "Exam conditions reveal what casual study conceals."
   },
@@ -98,10 +97,10 @@ const QUESTIONS = [
     type: 'matrix',
     icon: Activity,
     options: [
-      { text: 'Very Hard', value: 1 },
-      { text: 'Struggle', value: 2 },
-      { text: 'Mostly Fine', value: 3 },
-      { text: 'Very Easy', value: 4 }
+      { text: 'D (Needs Improvement 🔴)', value: 1 },
+      { text: 'C (Average)', value: 2 },
+      { text: 'B (Good / Better)', value: 3 },
+      { text: 'A (Excellent 🟢)', value: 4 }
     ],
     quote: "Memory is a muscle. Active recall is the workout."
   },
@@ -113,10 +112,10 @@ const QUESTIONS = [
     type: 'matrix',
     icon: AlertTriangle,
     options: [
-      { text: 'Huge Backlog', value: 1 },
-      { text: 'Moderate', value: 2 },
-      { text: 'Small', value: 3 },
-      { text: 'No Backlog', value: 4 }
+      { text: 'D (Needs Improvement 🔴)', value: 1 },
+      { text: 'C (Average)', value: 2 },
+      { text: 'B (Good / Better)', value: 3 },
+      { text: 'A (Excellent 🟢)', value: 4 }
     ],
     quote: "Don't let yesterday take up too much of today."
   },
@@ -128,10 +127,10 @@ const QUESTIONS = [
     type: 'single',
     icon: Target,
     options: [
-      { text: 'No clear plan', value: 1 },
-      { text: 'Rough idea', value: 2 },
-      { text: 'Mostly planned', value: 3 },
-      { text: 'Exact plan ready', value: 4 }
+      { text: 'D (Needs Improvement 🔴)', value: 1 },
+      { text: 'C (Average)', value: 2 },
+      { text: 'B (Good / Better)', value: 3 },
+      { text: 'A (Excellent 🟢)', value: 4 }
     ],
     quote: "A goal without a plan is just a wish."
   },
@@ -143,10 +142,10 @@ const QUESTIONS = [
     type: 'single',
     icon: Play,
     options: [
-      { text: 'Below 40%', value: 1 },
-      { text: '40 - 70%', value: 2 },
-      { text: '70 - 90%', value: 3 },
-      { text: '90%+', value: 4 }
+      { text: 'D (Needs Improvement 🔴)', value: 1 },
+      { text: 'C (Average)', value: 2 },
+      { text: 'B (Good / Better)', value: 3 },
+      { text: 'A (Excellent 🟢)', value: 4 }
     ],
     quote: "Execution eats strategy for breakfast."
   },
@@ -158,10 +157,10 @@ const QUESTIONS = [
     type: 'single',
     icon: CheckCircle2,
     options: [
-      { text: 'Not Ready', value: 1 },
-      { text: 'Not Fully Sure', value: 2 },
-      { text: 'Mostly Ready', value: 3 },
-      { text: 'Definitely Ready', value: 4 }
+      { text: 'D (Needs Improvement 🔴)', value: 1 },
+      { text: 'C (Average)', value: 2 },
+      { text: 'B (Good / Better)', value: 3 },
+      { text: 'A (Excellent 🟢)', value: 4 }
     ],
     quote: "Confidence comes from discipline and training."
   }
