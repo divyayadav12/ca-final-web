@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import { Target, BarChart2, ClipboardList, Rocket, Lock, BookOpen, RefreshCw, AlertCircle, Trophy, FileText, Activity, CheckCircle2, AlertTriangle, Play } from 'lucide-react';
@@ -316,15 +316,15 @@ const Assessment = ({ onComplete }) => {
   return (
     <div className="min-h-screen bg-[#f3f4f6] flex flex-col font-sans">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 px-6 py-3 flex justify-between items-center shadow-sm z-20 sticky top-0">
-        <div className="flex items-center space-x-6">
+      <header className="bg-white border-b border-gray-200 px-3 sm:px-6 py-3 flex justify-between items-center shadow-sm z-20 sticky top-0">
+        <div className="flex items-center space-x-3 sm:space-x-6 scale-[0.80] origin-left sm:scale-100">
           <FastLogo />
           <div className="font-bold text-[#1a2b4b] text-lg hidden sm:block">
             CA Final Nov 26<br/>
             <span className="text-gray-600 text-sm font-semibold">Reality Check</span>
           </div>
         </div>
-        <div className="flex flex-col items-end w-48">
+        <div className="flex flex-col items-end w-32 sm:w-48">
           <div className="flex justify-between w-full text-sm font-bold text-[#1a2b4b] mb-1">
             <span>Q {currentStep} of {QUESTIONS.length}</span>
             <span>{Math.round((currentStep / QUESTIONS.length) * 100)}%</span>
@@ -475,6 +475,22 @@ const Assessment = ({ onComplete }) => {
 
 const Result = ({ answers, onRetake }) => {
   const [activeTab, setActiveTab] = useState('Overview');
+  const dashboardRef = useRef(null);
+  const handleDownload = async () => {
+    if(!dashboardRef.current) return;
+    try {
+      const canvas = await html2canvas(dashboardRef.current, { scale: 2 });
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save('CA_Final_Reality_Check_Report.pdf');
+    } catch (e) {
+      console.error(e);
+      alert('Failed to download report. Please try on a desktop.');
+    }
+  };
   // Logic to calculate scores based on answers
   // Max possible per subject per question is generally 4 (value).
   // Some matrix questions have 4 options (1-4).
@@ -595,7 +611,7 @@ const Result = ({ answers, onRetake }) => {
       </aside>
 
       {/* Main Dashboard */}
-      <main className="flex-1 bg-[#f8fafc] lg:rounded-l-2xl overflow-hidden flex flex-col h-screen overflow-y-auto relative">
+      <main ref={dashboardRef} className="flex-1 bg-[#f8fafc] lg:rounded-l-2xl overflow-hidden flex flex-col h-screen overflow-y-auto relative">
         <div className="p-6 md:p-8">
           
           <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
@@ -607,7 +623,7 @@ const Result = ({ answers, onRetake }) => {
               <button onClick={onRetake} className="px-5 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-700 font-bold hover:bg-gray-50 flex items-center">
                 <RefreshCw className="w-4 h-4 mr-2" /> Retake Test
               </button>
-              <button className="px-5 py-2.5 bg-[#e51c24] rounded-lg text-white font-bold hover:bg-red-700 flex items-center shadow-md">
+              <button onClick={handleDownload} className="px-5 py-2.5 bg-[#e51c24] rounded-lg text-white font-bold hover:bg-red-700 flex items-center shadow-md">
                 Download My Report
               </button>
             </div>
