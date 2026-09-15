@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 import { Target, BarChart2, ClipboardList, Rocket, Lock, BookOpen, RefreshCw, AlertCircle, Trophy, FileText, Activity, CheckCircle2, AlertTriangle, Play } from 'lucide-react';
 
 // --- DATA ---
@@ -472,6 +474,7 @@ const Assessment = ({ onComplete }) => {
 };
 
 const Result = ({ answers, onRetake }) => {
+  const [activeTab, setActiveTab] = useState(\'Overview\');
   // Logic to calculate scores based on answers
   // Max possible per subject per question is generally 4 (value).
   // Some matrix questions have 4 options (1-4).
