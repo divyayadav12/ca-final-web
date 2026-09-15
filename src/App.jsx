@@ -636,20 +636,7 @@ const Result = ({ answers, onRetake }) => {
           </div>
         </div>
         
-        <nav className="flex-1 py-6 space-y-1">
-          {[
-            { name: 'Your Result', active: true },
-            { name: 'Subject-wise Analysis', active: false },
-            { name: 'Detailed Insights', active: false },
-            { name: 'Your Action Plan', active: false }
-          ].map((item, idx) => (
-            <a key={idx} href="#" className={`flex items-center px-6 py-4 font-medium transition-colors ${
-              item.active ? 'bg-[#e51c24] text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800'
-            }`}>
-              {item.name}
-            </a>
-          ))}
-        </nav>
+        <div className="flex-1"></div>
 
         <div className="p-6 relative">
           <div className="font-handwriting text-2xl text-gray-400 rotate-[-5deg] leading-tight">
