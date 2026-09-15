@@ -272,6 +272,10 @@ const Landing = ({ onStart, onNav }) => {
 };
 const Assessment = ({ onComplete }) => {
   const [currentStep, setCurrentStep] = useState(1);
+  
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [currentStep]);
   const [answers, setAnswers] = useState({}); // { qId: { FR: val, AFM: val... } or single value }
 
   const question = QUESTIONS[currentStep - 1];
@@ -947,6 +951,9 @@ const Contact = ({ onNav }) => (
 
 
 const UserInfoForm = ({ onSubmit, onBack }) => {
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
   const [formData, setFormData] = useState({ name: '', phone: '', email: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
