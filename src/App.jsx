@@ -249,7 +249,7 @@ const Landing = ({ onStart, onNav }) => {
         </div>
 
         {/* Sticky Note */}
-        <div className="absolute top-36 md:top-52 right-4 md:right-12 xl:right-24 bg-[#e8e4d9] text-gray-900 font-handwriting text-lg md:text-xl p-4 shadow-2xl rotate-[3deg] hidden lg:flex flex-col items-center justify-center w-36 h-36 md:w-40 md:h-40 rounded-sm">
+        <div className="absolute top-auto bottom-20 md:bottom-32 right-4 md:right-12 xl:right-24 bg-[#e8e4d9] text-gray-900 font-handwriting text-lg md:text-xl p-4 shadow-2xl rotate-[3deg] hidden lg:flex flex-col items-center justify-center w-36 h-36 md:w-40 md:h-40 rounded-sm">
           <div className="absolute top-[-8px] w-12 h-4 bg-white/40 shadow-sm rotate-[-2deg]"></div>
           Discipline<br/>Creates<br/>Freedom
         </div>
