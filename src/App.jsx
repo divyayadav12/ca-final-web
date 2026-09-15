@@ -180,7 +180,7 @@ const FastLogo = ({ className = "" }) => (
 const Landing = ({ onStart, onNav }) => {
   return (
     <div 
-      className="h-screen text-white flex flex-col font-sans relative overflow-hidden bg-black"
+      className="h-[100dvh] text-white flex flex-col font-sans relative overflow-hidden bg-black"
       style={{
         backgroundImage: "url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=1920&auto=format&fit=crop')",
         backgroundSize: 'cover',
@@ -190,7 +190,7 @@ const Landing = ({ onStart, onNav }) => {
       }}
     >
       {/* Navbar */}
-      <nav className="flex justify-between items-center px-4 md:px-12 py-2 md:py-4 z-10 relative">
+      <nav className="flex justify-between items-center px-4 md:px-12 py-3 md:py-4 z-10 relative">
         <FastLogo />
         <div className="hidden md:flex space-x-10 text-sm font-medium text-gray-300">
           <button onClick={() => onNav('Home')} className="hover:text-white transition-colors">Home</button>
@@ -201,30 +201,34 @@ const Landing = ({ onStart, onNav }) => {
       </nav>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-4 pb-20 text-center">
+      <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-4 pb-16 md:pb-20 text-center w-full max-w-full">
         
-        <h2 className="text-xl md:text-3xl font-bold tracking-wide mb-1 uppercase text-gray-100">CA Final Nov 26</h2>
-        <h1 className="text-4xl md:text-6xl font-black italic mb-2 flex flex-wrap justify-center gap-4">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-wide mb-2 uppercase text-gray-100">CA Final Nov 26</h2>
+        <h1 className="text-[2.75rem] leading-[1.1] md:text-6xl font-black italic mb-3 flex flex-wrap justify-center gap-x-3 gap-y-1 w-full">
           <span className="text-white drop-shadow-lg">REALITY</span>
           <span className="text-[#e51c24] drop-shadow-lg">CHECK</span>
         </h1>
-        <p className="text-sm md:text-lg text-gray-200 mb-4 md:mb-6 font-medium max-w-2xl drop-shadow-md">
+        <p className="text-base md:text-lg text-gray-200 mb-6 font-medium max-w-2xl drop-shadow-md">
           A 10-Question Self-Assessment<br/>for a Clearer, Stronger You.
         </p>
 
         {/* Features */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-6 mb-4 md:mb-8 max-w-4xl w-full px-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-4 md:gap-6 mb-8 max-w-4xl w-full px-2">
           {[
-            { icon: Target, text: "Know Your\nCurrent Position" },
-            { icon: BarChart2, text: "Identify Your\nWeak Areas" },
-            { icon: ClipboardList, text: "Get Subject-wise\nAnalysis" },
-            { icon: Rocket, text: "Start Your\nAction Plan" }
+            { icon: Target, text: "Know Your
+Current Position" },
+            { icon: BarChart2, text: "Identify Your
+Weak Areas" },
+            { icon: ClipboardList, text: "Get Subject-wise
+Analysis" },
+            { icon: Rocket, text: "Start Your
+Action Plan" }
           ].map((feat, idx) => (
             <div key={idx} className="flex flex-col items-center text-center">
-              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white/20 flex items-center justify-center mb-2 bg-white/5 backdrop-blur-sm">
-                <feat.icon className="w-4 h-4 md:w-5 md:h-5 text-white" strokeWidth={2} />
+              <div className="w-11 h-11 md:w-12 md:h-12 rounded-full border-2 border-white/20 flex items-center justify-center mb-3 bg-white/5 backdrop-blur-sm">
+                <feat.icon className="w-5 h-5 md:w-5 md:h-5 text-white" strokeWidth={2} />
               </div>
-              <p className="text-[11px] md:text-[13px] text-gray-300 whitespace-pre-line font-medium leading-tight">{feat.text}</p>
+              <p className="text-xs md:text-[13px] text-gray-300 whitespace-pre-line font-medium leading-tight">{feat.text}</p>
             </div>
           ))}
         </div>
@@ -232,12 +236,12 @@ const Landing = ({ onStart, onNav }) => {
         {/* CTA */}
         <button 
           onClick={onStart}
-          className="bg-[#e51c24] hover:bg-red-700 text-white text-base md:text-xl font-bold py-3 md:py-4 px-8 md:px-16 rounded-xl flex items-center transition-all shadow-[0_0_30px_rgba(229,28,36,0.5)] relative z-20"
+          className="bg-[#e51c24] hover:bg-red-700 text-white text-lg md:text-xl font-bold py-3.5 md:py-4 px-8 md:px-16 w-[90%] sm:w-auto rounded-xl flex items-center justify-center transition-all shadow-[0_0_30px_rgba(229,28,36,0.5)] relative z-20"
         >
           Start Reality Check <span className="ml-2">→</span>
         </button>
-        <div className="flex items-center text-gray-400 mt-3 text-[10px] md:text-xs font-medium relative z-20">
-          <Lock className="w-3 h-3 mr-1" />
+        <div className="flex items-center text-gray-400 mt-4 text-[11px] md:text-xs font-medium relative z-20">
+          <Lock className="w-3.5 h-3.5 mr-1" />
           Secure & Private Assessment
         </div>
 
@@ -260,10 +264,10 @@ const Landing = ({ onStart, onNav }) => {
         </div>
 
         {/* Bottom Pill Quote */}
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-full max-w-2xl px-4 z-20">
-           <div className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl py-3 px-6 md:py-4 md:px-8 text-gray-300 italic text-xs md:text-sm border border-white/10 shadow-2xl flex justify-between items-center">
-              <span>"Clarity today, a better result tomorrow."</span> 
-              <span className="font-semibold not-italic text-gray-400">— Team FAST</span>
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-[95%] max-w-2xl px-2 md:px-4 z-20">
+           <div className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl py-3.5 px-5 md:py-4 md:px-8 text-gray-300 italic text-[11px] sm:text-xs md:text-sm border border-white/10 shadow-2xl flex justify-between items-center">
+              <span className="leading-snug">"Clarity today, a better result tomorrow."</span> 
+              <span className="font-semibold not-italic text-gray-400 ml-2 whitespace-nowrap">— Team FAST</span>
            </div>
         </div>
       </div>
