@@ -395,7 +395,7 @@ const Assessment = ({ onComplete }) => {
                   <tr>
                     <th className="bg-[#f8fafc] text-left p-1 md:p-4 rounded-tl-lg font-bold text-[#1a2b4b] border-b border-gray-200 w-[28%] text-[8px] md:text-sm leading-tight">Subject</th>
                     {question.options.map((opt, i) => (
-                      <th key={i} className={`bg-[#f8fafc] p-1 md:p-2 lg:p-4 font-bold text-[#1a2b4b] text-center border-b border-gray-200 text-[6.5px] min-[375px]:text-[7.5px] sm:text-[9px] md:text-xs lg:text-sm whitespace-nowrap tracking-tighter ${i === question.options.length - 1 ? \'rounded-tr-lg\' : \'\'}`}>
+                      <th key={i} className={`bg-[#f8fafc] p-1 md:p-2 lg:p-4 font-bold text-[#1a2b4b] text-center border-b border-gray-200 text-[6.5px] min-[375px]:text-[7.5px] sm:text-[9px] md:text-xs lg:text-sm whitespace-nowrap tracking-tighter ${i === question.options.length - 1 ? 'rounded-tr-lg' : ''}`}>
                         {opt.text}
                       </th>
                     ))}
