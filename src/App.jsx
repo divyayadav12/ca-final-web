@@ -641,8 +641,7 @@ const Result = ({ answers, onRetake }) => {
             { name: 'Your Result', active: true },
             { name: 'Subject-wise Analysis', active: false },
             { name: 'Detailed Insights', active: false },
-            { name: 'Your Action Plan', active: false },
-            { name: 'Download Report', active: false }
+            { name: 'Your Action Plan', active: false }
           ].map((item, idx) => (
             <a key={idx} href="#" className={`flex items-center px-6 py-4 font-medium transition-colors ${
               item.active ? 'bg-[#e51c24] text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800'
