@@ -202,19 +202,19 @@ const Landing = ({ onStart, onNav }) => {
       </nav>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-4 pb-24 text-center mt-8 md:mt-12">
+      <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-4 pb-12 text-center mt-2 md:mt-6">
         
         <h2 className="text-3xl md:text-5xl font-bold tracking-wide mb-1 uppercase text-gray-100">CA Final Nov 26</h2>
-        <h1 className="text-6xl md:text-8xl font-black italic mb-6 flex flex-wrap justify-center gap-4">
+        <h1 className="text-5xl md:text-8xl font-black italic mb-3 flex flex-wrap justify-center gap-4">
           <span className="text-white drop-shadow-lg">REALITY</span>
           <span className="text-[#e51c24] drop-shadow-lg">CHECK</span>
         </h1>
-        <p className="text-lg md:text-2xl text-gray-200 mb-12 font-medium max-w-2xl drop-shadow-md">
+        <p className="text-base md:text-2xl text-gray-200 mb-6 font-medium max-w-2xl drop-shadow-md">
           A 10-Question Self-Assessment<br/>for a Clearer, Stronger You.
         </p>
 
         {/* Features */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12 mb-12 max-w-4xl w-full">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-12 mb-6 max-w-4xl w-full">
           {[
             { icon: Target, text: "Know Your\nCurrent Position" },
             { icon: BarChart2, text: "Identify Your\nWeak Areas" },
@@ -233,7 +233,7 @@ const Landing = ({ onStart, onNav }) => {
         {/* CTA */}
         <button 
           onClick={onStart}
-          className="bg-[#e51c24] hover:bg-red-700 text-white text-xl md:text-2xl font-bold py-4 px-12 md:px-20 rounded-xl flex items-center transition-all shadow-[0_0_30px_rgba(229,28,36,0.5)] relative z-20"
+          className="bg-[#e51c24] hover:bg-red-700 text-white text-lg md:text-2xl font-bold py-3 md:py-4 px-10 md:px-20 rounded-xl flex items-center transition-all shadow-[0_0_30px_rgba(229,28,36,0.5)] relative z-20"
         >
           Start Reality Check <span className="ml-3">→</span>
         </button>
@@ -375,7 +375,7 @@ const Assessment = ({ onComplete }) => {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-10">
+        <main className="flex-1 bg-white md:rounded-xl shadow-sm border border-gray-200 p-4 md:p-10 flex flex-col min-h-[50vh]">
           <div className="flex items-start mb-8">
             <div className="bg-[#fff1f2] p-3 rounded-xl text-[#e51c24] mr-4 shrink-0">
               <question.icon className="w-8 h-8" />
@@ -386,14 +386,14 @@ const Assessment = ({ onComplete }) => {
             </div>
           </div>
 
-          <div className="overflow-x-auto pb-4">
+          <div className="w-full pb-2 md:pb-4 overflow-hidden">
             {question.type === 'matrix' ? (
-              <table className="w-full min-w-[600px] border-collapse">
+              <table className="w-full table-fixed border-collapse max-w-full">
                 <thead>
                   <tr>
-                    <th className="bg-[#f8fafc] text-left p-4 rounded-tl-lg font-bold text-[#1a2b4b] border-b border-gray-200 w-1/3">Subject</th>
+                    <th className="bg-[#f8fafc] text-left p-2 md:p-4 rounded-tl-lg font-bold text-[#1a2b4b] border-b border-gray-200 w-[35%] text-[10px] md:text-sm leading-tight">Subject</th>
                     {question.options.map((opt, i) => (
-                      <th key={i} className={`bg-[#f8fafc] p-4 font-bold text-[#1a2b4b] text-center border-b border-gray-200 ${i === question.options.length - 1 ? 'rounded-tr-lg' : ''}`}>
+                      <th key={i} className={`bg-[#f8fafc] p-1 md:p-4 font-bold text-[#1a2b4b] text-center border-b border-gray-200 text-[9px] md:text-sm break-words ${i === question.options.length - 1 ? 'rounded-tr-lg' : ''}`}>
                         {opt.text}
                       </th>
                     ))}
@@ -402,15 +402,15 @@ const Assessment = ({ onComplete }) => {
                 <tbody>
                   {SUBJECTS.map((subject, sIdx) => (
                     <tr key={subject.id} className="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
-                      <td className="p-4 font-medium text-[#1a2b4b] text-sm">{subject.name}</td>
+                      <td className="p-2 md:p-4 font-medium text-[#1a2b4b] text-[10px] md:text-sm leading-tight">{subject.name}</td>
                       {question.options.map((opt, oIdx) => {
                         const isSelected = answers[question.id]?.[subject.id] === opt.value;
                         return (
-                          <td key={oIdx} className="p-4 text-center">
+                          <td key={oIdx} className="p-1 md:p-4 text-center">
                             <input 
                               type="radio" 
                               name={`${question.id}-${subject.id}`}
-                              className="custom-radio"
+                              className="custom-radio scale-75 md:scale-100"
                               checked={isSelected}
                               onChange={() => handleMatrixChange(subject.id, opt.value)}
                             />
@@ -447,11 +447,11 @@ const Assessment = ({ onComplete }) => {
           </div>
 
           {/* Footer Actions */}
-          <div className="mt-8 pt-6 border-t border-gray-100 flex justify-between items-center">
+          <div className="mt-4 md:mt-8 pt-4 md:pt-6 border-t border-gray-100 flex justify-between items-center mt-auto">
             <button 
               onClick={() => setCurrentStep(prev => Math.max(1, prev - 1))}
               disabled={currentStep === 1}
-              className={`flex items-center px-6 py-3 rounded-lg font-bold transition-colors ${
+              className={`flex items-center px-4 md:px-6 py-2 md:py-3 rounded-lg font-bold text-sm md:text-base transition-colors ${
                 currentStep === 1 ? 'text-gray-300 cursor-not-allowed bg-gray-50' : 'text-gray-600 bg-gray-100 hover:bg-gray-200'
               }`}
             >
@@ -460,7 +460,7 @@ const Assessment = ({ onComplete }) => {
             <button 
               onClick={handleNext}
               disabled={!canProceed()}
-              className={`flex items-center px-8 py-3 rounded-lg font-bold transition-all shadow-md ${
+              className={`flex items-center px-6 md:px-8 py-2 md:py-3 rounded-lg font-bold text-sm md:text-base transition-all shadow-md ${
                 !canProceed() ? 'bg-gray-300 text-white cursor-not-allowed shadow-none' : 'bg-[#e51c24] hover:bg-red-700 text-white'
               }`}
             >
