@@ -474,7 +474,7 @@ const Assessment = ({ onComplete }) => {
 };
 
 const Result = ({ answers, onRetake }) => {
-  const [activeTab, setActiveTab] = useState(\'Overview\');
+  const [activeTab, setActiveTab] = useState('Overview');
   // Logic to calculate scores based on answers
   // Max possible per subject per question is generally 4 (value).
   // Some matrix questions have 4 options (1-4).
@@ -984,7 +984,7 @@ const UserInfoForm = ({ onSubmit, onBack }) => {
           
           <div className="pt-4 flex gap-4">
             <button type="button" onClick={onBack} className="flex-1 bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 rounded-lg transition-colors">Back</button>
-            <button type="submit" disabled={isSubmitting} className={lex-1  text-white font-bold py-3 rounded-lg transition-colors shadow-lg shadow-red-500/20}>
+            <button type="submit" disabled={isSubmitting} className={`flex-1 ${isSubmitting ? 'bg-red-900 cursor-not-allowed' : 'bg-[#e51c24] hover:bg-red-700'} text-white font-bold py-3 rounded-lg transition-colors shadow-lg shadow-red-500/20`}>
               {isSubmitting ? 'Starting...' : 'Start Test →'}
             </button>
           </div>
