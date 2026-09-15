@@ -180,7 +180,7 @@ const FastLogo = ({ className = "" }) => (
 const Landing = ({ onStart, onNav }) => {
   return (
     <div 
-      className="min-h-screen text-white flex flex-col font-sans relative overflow-hidden bg-black"
+      className="h-screen text-white flex flex-col font-sans relative overflow-hidden bg-black"
       style={{
         backgroundImage: "url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=1920&auto=format&fit=crop')",
         backgroundSize: 'cover',
@@ -201,19 +201,19 @@ const Landing = ({ onStart, onNav }) => {
       </nav>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-4 pb-12 text-center mt-2 md:mt-6">
+      <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-4 pb-2 md:pb-4 text-center mt-2 md:mt-4">
         
-        <h2 className="text-3xl md:text-5xl font-bold tracking-wide mb-1 uppercase text-gray-100">CA Final Nov 26</h2>
-        <h1 className="text-5xl md:text-8xl font-black italic mb-3 flex flex-wrap justify-center gap-4">
+        <h2 className="text-2xl md:text-4xl font-bold tracking-wide mb-1 uppercase text-gray-100">CA Final Nov 26</h2>
+        <h1 className="text-4xl md:text-6xl font-black italic mb-3 flex flex-wrap justify-center gap-4">
           <span className="text-white drop-shadow-lg">REALITY</span>
           <span className="text-[#e51c24] drop-shadow-lg">CHECK</span>
         </h1>
-        <p className="text-base md:text-2xl text-gray-200 mb-6 font-medium max-w-2xl drop-shadow-md">
+        <p className="text-sm md:text-xl text-gray-200 mb-4 md:mb-6 font-medium max-w-2xl drop-shadow-md">
           A 10-Question Self-Assessment<br/>for a Clearer, Stronger You.
         </p>
 
         {/* Features */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-12 mb-6 max-w-4xl w-full">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-12 mb-4 md:mb-6 max-w-4xl w-full">
           {[
             { icon: Target, text: "Know Your\nCurrent Position" },
             { icon: BarChart2, text: "Identify Your\nWeak Areas" },
@@ -221,7 +221,7 @@ const Landing = ({ onStart, onNav }) => {
             { icon: Rocket, text: "Start Your\nAction Plan" }
           ].map((feat, idx) => (
             <div key={idx} className="flex flex-col items-center text-center">
-              <div className="w-12 h-12 rounded-full border-2 border-white/20 flex items-center justify-center mb-3 bg-white/5 backdrop-blur-sm">
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-white/20 flex items-center justify-center mb-2 bg-white/5 backdrop-blur-sm">
                 <feat.icon className="w-6 h-6 text-white" strokeWidth={2} />
               </div>
               <p className="text-[13px] md:text-sm text-gray-300 whitespace-pre-line font-medium leading-snug">{feat.text}</p>
@@ -249,7 +249,7 @@ const Landing = ({ onStart, onNav }) => {
         </div>
 
         {/* Sticky Note */}
-        <div className="absolute top-48 right-10 md:right-24 bg-[#e8e4d9] text-gray-900 font-handwriting text-2xl p-6 shadow-2xl rotate-[3deg] hidden lg:flex flex-col items-center justify-center w-48 h-48 rounded-sm">
+        <div className="absolute top-24 right-4 md:right-12 xl:right-24 bg-[#e8e4d9] text-gray-900 font-handwriting text-2xl p-6 shadow-2xl rotate-[3deg] hidden lg:flex flex-col items-center justify-center w-48 h-48 rounded-sm">
           <div className="absolute top-[-10px] w-16 h-6 bg-white/40 shadow-sm rotate-[-2deg]"></div>
           Discipline<br/>Creates<br/>Freedom
         </div>
