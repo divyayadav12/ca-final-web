@@ -260,7 +260,7 @@ const Landing = ({ onStart, onNav }) => {
         </div>
 
         {/* Bottom Pill Quote */}
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-full max-w-2xl px-4 z-20">
+        <div className="relative mt-8 mb-4 w-full max-w-2xl px-4 z-20 mx-auto">
            <div className="bg-white/10 backdrop-blur-md rounded-2xl py-4 px-8 text-gray-300 italic text-sm md:text-base border border-white/10 shadow-2xl flex justify-between items-center">
               <span>"Clarity today, a better result tomorrow."</span> 
               <span className="font-semibold not-italic text-gray-400">— Team FAST</span>
@@ -392,7 +392,7 @@ const Assessment = ({ onComplete }) => {
                   <tr>
                     <th className="bg-[#f8fafc] text-left p-2 md:p-4 rounded-tl-lg font-bold text-[#1a2b4b] border-b border-gray-200 w-[35%] text-[10px] md:text-sm leading-tight">Subject</th>
                     {question.options.map((opt, i) => (
-                      <th key={i} className={`bg-[#f8fafc] p-1 md:p-4 font-bold text-[#1a2b4b] text-center border-b border-gray-200 text-[9px] md:text-sm break-words ${i === question.options.length - 1 ? 'rounded-tr-lg' : ''}`}>
+                      <th key={i} className={`bg-[#f8fafc] p-0 md:p-4 font-bold text-[#1a2b4b] text-center border-b border-gray-200 text-[8px] md:text-sm whitespace-nowrap ${i === question.options.length - 1 ? 'rounded-tr-lg' : ''}`}>
                         {opt.text}
                       </th>
                     ))}
@@ -953,27 +953,31 @@ const UserInfoForm = ({ onSubmit, onBack }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
     
+    if (!/^\d{10}$/.test(formData.phone)) {
+      alert('Please enter a valid 10-digit mobile number.');
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
+    setIsSubmitting(true);
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzlK48p9oZf2f8Y0l437bU9cproU3f3y1Pm8Y8tfHnMxfXMVKbx2cSQNfqu0t7Un23b/exec';
     
     fetch(scriptURL, {
       method: 'POST',
       mode: 'no-cors',
-      headers: {
-        'Content-Type': 'text/plain',
-      },
+      headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify(formData)
-    })
-    .then(() => {
+    }).catch(err => console.error(err));
+    
+    setTimeout(() => {
       setIsSubmitting(false);
       onSubmit(formData);
-    })
-    .catch(error => {
-      console.error('Error saving to sheets:', error);
-      setIsSubmitting(false);
-      onSubmit(formData); // Proceed to test even if tracking fails
-    });
+    }, 400);
   };
 
   return (
