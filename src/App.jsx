@@ -586,6 +586,24 @@ const Result = ({ answers, onRetake }) => {
   const sortedSubjects = [...subjectScores].sort((a, b) => b.score - a.score);
   const strongest = sortedSubjects[0];
   const weakest = sortedSubjects[sortedSubjects.length - 1];
+  
+  const highestScore = strongest.score;
+  const strongestList = sortedSubjects.filter(s => s.score === highestScore);
+  let strongestName = strongestList[0].name.split(' (')[0];
+  if (strongestList.length === sortedSubjects.length) {
+    strongestName = 'All Subjects (Tie)';
+  } else if (strongestList.length > 1) {
+    strongestName = strongestName + ' & ' + (strongestList.length - 1) + ' more';
+  }
+
+  const lowestScore = weakest.score;
+  const weakestList = sortedSubjects.filter(s => s.score === lowestScore);
+  let weakestName = weakestList[0].name.split(' (')[0];
+  if (weakestList.length === sortedSubjects.length) {
+    weakestName = 'All Subjects (Tie)';
+  } else if (weakestList.length > 1) {
+    weakestName = weakestName + ' & ' + (weakestList.length - 1) + ' more';
+  }
 
   const getStatus = (perc) => {
     if (perc >= 75) return { text: "Good", color: "text-[#16a34a]" };
@@ -723,7 +741,7 @@ const Result = ({ answers, onRetake }) => {
                   </div>
                   <div>
                     <div className="text-xs font-bold text-gray-500 mb-1">Your Strongest Subject</div>
-                    <div className="text-xl font-bold text-[#1a2b4b] mb-1">{strongest.name.split(' (')[0]}</div>
+                    <div className="text-xl font-bold text-[#1a2b4b] mb-1">{strongestName}</div>
                     <div className="text-sm text-gray-600 mb-2">({Math.round((strongest.score / 4)*100)}% overall readiness)</div>
                     <div className="text-sm font-semibold text-[#16a34a]">Keep the momentum!</div>
                   </div>
@@ -748,7 +766,7 @@ const Result = ({ answers, onRetake }) => {
                     </div>
                     <div>
                       <div className="text-xs font-bold text-gray-500 mb-1">Your Biggest Gap</div>
-                      <div className="text-xl font-bold text-[#1a2b4b] mb-1">{weakest.name}</div>
+                      <div className="text-xl font-bold text-[#1a2b4b] mb-1">{weakestName}</div>
                       <div className="text-sm text-gray-600 mb-2">Needs immediate action</div>
                       <div className="text-sm font-semibold text-[#e51c24]">Prioritise this subject in your next 30 days.</div>
                     </div>
