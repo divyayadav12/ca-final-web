@@ -215,14 +215,10 @@ const Landing = ({ onStart, onNav }) => {
         {/* Features */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-6 mb-4 md:mb-8 max-w-4xl w-full px-2">
           {[
-            { icon: Target, text: "Know Your
-Current Position" },
-            { icon: BarChart2, text: "Identify Your
-Weak Areas" },
-            { icon: ClipboardList, text: "Get Subject-wise
-Analysis" },
-            { icon: Rocket, text: "Start Your
-Action Plan" }
+            { icon: Target, text: "Know Your\nCurrent Position" },
+            { icon: BarChart2, text: "Identify Your\nWeak Areas" },
+            { icon: ClipboardList, text: "Get Subject-wise\nAnalysis" },
+            { icon: Rocket, text: "Start Your\nAction Plan" }
           ].map((feat, idx) => (
             <div key={idx} className="flex flex-col items-center text-center">
               <div className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white/20 flex items-center justify-center mb-2 bg-white/5 backdrop-blur-sm">
