@@ -934,12 +934,31 @@ const Contact = ({ onNav }) => (
 
 const UserInfoForm = ({ onSubmit, onBack }) => {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simulate saving to Google Sheets/Database
-    console.log("Saving to Excel Database:", formData);
-    onSubmit(formData);
+    setIsSubmitting(true);
+    
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyKVpT1goIoymf2reDW_a5zs0ZfmQ1CdVEqCWzXUWWqSX-W3kRvjkdYZpiQp13cEScm/exec';
+    
+    fetch(scriptURL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'text/plain',
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(() => {
+      setIsSubmitting(false);
+      onSubmit(formData);
+    })
+    .catch(error => {
+      console.error('Error saving to sheets:', error);
+      setIsSubmitting(false);
+      onSubmit(formData); // Proceed to test even if tracking fails
+    });
   };
 
   return (
@@ -965,7 +984,9 @@ const UserInfoForm = ({ onSubmit, onBack }) => {
           
           <div className="pt-4 flex gap-4">
             <button type="button" onClick={onBack} className="flex-1 bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 rounded-lg transition-colors">Back</button>
-            <button type="submit" className="flex-1 bg-[#e51c24] hover:bg-red-700 text-white font-bold py-3 rounded-lg transition-colors shadow-lg shadow-red-500/20">Start Test →</button>
+            <button type="submit" disabled={isSubmitting} className={lex-1  text-white font-bold py-3 rounded-lg transition-colors shadow-lg shadow-red-500/20}>
+              {isSubmitting ? 'Starting...' : 'Start Test →'}
+            </button>
           </div>
         </form>
       </div>
