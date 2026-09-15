@@ -201,7 +201,7 @@ const Landing = ({ onStart, onNav }) => {
       </nav>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-4 pb-2 md:pb-4 text-center mt-2 md:mt-4">
+      <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-4 pb-6 md:pb-12 text-center mt-2 md:mt-4">
         
         <h2 className="text-2xl md:text-4xl font-bold tracking-wide mb-1 uppercase text-gray-100">CA Final Nov 26</h2>
         <h1 className="text-4xl md:text-6xl font-black italic mb-3 flex flex-wrap justify-center gap-4">
@@ -249,7 +249,7 @@ const Landing = ({ onStart, onNav }) => {
         </div>
 
         {/* Sticky Note */}
-        <div className="absolute top-24 right-4 md:right-12 xl:right-24 bg-[#e8e4d9] text-gray-900 font-handwriting text-2xl p-6 shadow-2xl rotate-[3deg] hidden lg:flex flex-col items-center justify-center w-48 h-48 rounded-sm">
+        <div className="absolute top-40 md:top-48 right-4 md:right-12 xl:right-24 bg-[#e8e4d9] text-gray-900 font-handwriting text-xl p-4 shadow-2xl rotate-[3deg] hidden lg:flex flex-col items-center justify-center w-40 h-40 rounded-sm">
           <div className="absolute top-[-10px] w-16 h-6 bg-white/40 shadow-sm rotate-[-2deg]"></div>
           Discipline<br/>Creates<br/>Freedom
         </div>
@@ -260,7 +260,7 @@ const Landing = ({ onStart, onNav }) => {
         </div>
 
         {/* Bottom Pill Quote */}
-        <div className="relative mt-8 mb-4 w-full max-w-2xl px-4 z-20 mx-auto">
+        <div className="relative mt-4 md:mt-8 mb-8 md:mb-16 w-full max-w-2xl px-4 z-20 mx-auto">
            <div className="bg-white/10 backdrop-blur-md rounded-2xl py-4 px-8 text-gray-300 italic text-sm md:text-base border border-white/10 shadow-2xl flex justify-between items-center">
               <span>"Clarity today, a better result tomorrow."</span> 
               <span className="font-semibold not-italic text-gray-400">— Team FAST</span>
@@ -392,7 +392,7 @@ const Assessment = ({ onComplete }) => {
                   <tr>
                     <th className="bg-[#f8fafc] text-left p-2 md:p-4 rounded-tl-lg font-bold text-[#1a2b4b] border-b border-gray-200 w-[35%] text-[10px] md:text-sm leading-tight">Subject</th>
                     {question.options.map((opt, i) => (
-                      <th key={i} className={`bg-[#f8fafc] p-0 md:p-4 font-bold text-[#1a2b4b] text-center border-b border-gray-200 text-[8px] md:text-sm whitespace-nowrap ${i === question.options.length - 1 ? 'rounded-tr-lg' : ''}`}>
+                      <th key={i} className={`bg-[#f8fafc] p-1 md:p-2 lg:p-4 font-bold text-[#1a2b4b] text-center border-b border-gray-200 text-[8px] md:text-xs lg:text-sm break-words ${i === question.options.length - 1 ? 'rounded-tr-lg' : ''}`}>
                         {opt.text}
                       </th>
                     ))}
