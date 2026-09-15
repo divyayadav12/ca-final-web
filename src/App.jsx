@@ -25,7 +25,7 @@ const QUESTIONS = [
       { text: 'A (Excellent)', value: 4 },
       { text: 'B (Better)', value: 3 },
       { text: 'C (Average)', value: 2 },
-      { text: 'D (Needs Improvement)', value: 1 }
+      { text: 'D (Below Average)', value: 1 }
     ],
     quote: "Real students face gaps. Winners fix them."
   },
@@ -40,7 +40,7 @@ const QUESTIONS = [
       { text: 'A (Excellent)', value: 4 },
       { text: 'B (Better)', value: 3 },
       { text: 'C (Average)', value: 2 },
-      { text: 'D (Needs Improvement)', value: 1 }
+      { text: 'D (Below Average)', value: 1 }
     ],
     quote: "Progress is a result of honest self-assessment, not wishful thinking."
   },
@@ -55,7 +55,7 @@ const QUESTIONS = [
       { text: 'A (Excellent)', value: 4 },
       { text: 'B (Better)', value: 3 },
       { text: 'C (Average)', value: 2 },
-      { text: 'D (Needs Improvement)', value: 1 }
+      { text: 'D (Below Average)', value: 1 }
     ],
     quote: "Tests don't define you. They show you what to work on."
   },
@@ -70,7 +70,7 @@ const QUESTIONS = [
       { text: 'A (Excellent)', value: 4 },
       { text: 'B (Better)', value: 3 },
       { text: 'C (Average)', value: 2 },
-      { text: 'D (Needs Improvement)', value: 1 }
+      { text: 'D (Below Average)', value: 1 }
     ],
     quote: "Identifying the leak is the first step to fixing the pipe."
   },
@@ -85,7 +85,7 @@ const QUESTIONS = [
       { text: 'A (Excellent)', value: 4 },
       { text: 'B (Better)', value: 3 },
       { text: 'C (Average)', value: 2 },
-      { text: 'D (Needs Improvement)', value: 1 }
+      { text: 'D (Below Average)', value: 1 }
     ],
     quote: "Exam conditions reveal what casual study conceals."
   },
@@ -100,7 +100,7 @@ const QUESTIONS = [
       { text: 'A (Excellent)', value: 4 },
       { text: 'B (Better)', value: 3 },
       { text: 'C (Average)', value: 2 },
-      { text: 'D (Needs Improvement)', value: 1 }
+      { text: 'D (Below Average)', value: 1 }
     ],
     quote: "Memory is a muscle. Active recall is the workout."
   },
@@ -115,7 +115,7 @@ const QUESTIONS = [
       { text: 'A (Excellent)', value: 4 },
       { text: 'B (Better)', value: 3 },
       { text: 'C (Average)', value: 2 },
-      { text: 'D (Needs Improvement)', value: 1 }
+      { text: 'D (Below Average)', value: 1 }
     ],
     quote: "Don't let yesterday take up too much of today."
   },
@@ -130,7 +130,7 @@ const QUESTIONS = [
       { text: 'A (Excellent)', value: 4 },
       { text: 'B (Better)', value: 3 },
       { text: 'C (Average)', value: 2 },
-      { text: 'D (Needs Improvement)', value: 1 }
+      { text: 'D (Below Average)', value: 1 }
     ],
     quote: "A goal without a plan is just a wish."
   },
@@ -145,7 +145,7 @@ const QUESTIONS = [
       { text: 'A (Excellent)', value: 4 },
       { text: 'B (Better)', value: 3 },
       { text: 'C (Average)', value: 2 },
-      { text: 'D (Needs Improvement)', value: 1 }
+      { text: 'D (Below Average)', value: 1 }
     ],
     quote: "Execution eats strategy for breakfast."
   },
@@ -160,7 +160,7 @@ const QUESTIONS = [
       { text: 'A (Excellent)', value: 4 },
       { text: 'B (Better)', value: 3 },
       { text: 'C (Average)', value: 2 },
-      { text: 'D (Needs Improvement)', value: 1 }
+      { text: 'D (Below Average)', value: 1 }
     ],
     quote: "Confidence comes from discipline and training."
   }
