@@ -239,7 +239,7 @@ const Landing = ({ onStart, onNav }) => {
         </button>
         <div className="flex items-center text-gray-400 mt-4 text-xs md:text-sm font-medium relative z-20">
           <Lock className="w-3 h-3 mr-2" />
-          No personal information required
+          Secure & Private Assessment
         </div>
 
         {/* Floating Texts & Decor */}
@@ -931,19 +931,73 @@ const Contact = ({ onNav }) => (
   </div>
 );
 
+
+const UserInfoForm = ({ onSubmit, onBack }) => {
+  const [formData, setFormData] = useState({ name: '', phone: '', email: '' });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Simulate saving to Google Sheets/Database
+    console.log("Saving to Excel Database:", formData);
+    onSubmit(formData);
+  };
+
+  return (
+    <div className="min-h-screen bg-[#111] text-white flex flex-col items-center justify-center p-6 font-sans relative overflow-hidden">
+      <div className="bg-gray-900 border border-gray-800 p-6 md:p-8 rounded-2xl w-full max-w-md relative z-10 shadow-2xl">
+        <FastLogo className="mb-8 scale-90 origin-left" />
+        <h2 className="text-2xl font-bold mb-2">Student Details</h2>
+        <p className="text-gray-400 mb-6 text-sm">Please enter your details to start the Reality Check. Your report will be saved to our database.</p>
+        
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-1">Full Name</label>
+            <input required type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-black border border-gray-700 rounded-lg p-3 text-white focus:border-[#e51c24] outline-none transition-colors" placeholder="e.g. Rahul Kumar" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-1">Contact Number</label>
+            <input required type="tel" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full bg-black border border-gray-700 rounded-lg p-3 text-white focus:border-[#e51c24] outline-none transition-colors" placeholder="+91 99999 99999" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-1">Email Address</label>
+            <input required type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full bg-black border border-gray-700 rounded-lg p-3 text-white focus:border-[#e51c24] outline-none transition-colors" placeholder="student@example.com" />
+          </div>
+          
+          <div className="pt-4 flex gap-4">
+            <button type="button" onClick={onBack} className="flex-1 bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 rounded-lg transition-colors">Back</button>
+            <button type="submit" className="flex-1 bg-[#e51c24] hover:bg-red-700 text-white font-bold py-3 rounded-lg transition-colors shadow-lg shadow-red-500/20">Start Test →</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
 // --- APP WRAPPER ---
 
 export default function App() {
   const [step, setStep] = useState('landing');
   const [answers, setAnswers] = useState(null);
+  const [userData, setUserData] = useState(null);
 
   return (
     <>
-      {step === 'landing' && <Landing onStart={() => setStep('assessment')} onNav={setStep} />}
+      {step === 'landing' && <Landing onStart={() => setStep('userForm')} onNav={setStep} />}
       {step === 'Home' && <Home onNav={setStep} />}
       {step === 'CA Final' && <CAFinal onNav={setStep} />}
       {step === 'About' && <About onNav={setStep} />}
       {step === 'Contact' && <Contact onNav={setStep} />}
+      
+      {step === 'userForm' && (
+        <UserInfoForm 
+          onBack={() => setStep('landing')}
+          onSubmit={(data) => {
+            setUserData(data);
+            setStep('assessment');
+          }} 
+        />
+      )}
+
       {step === 'assessment' && (
         <Assessment 
           onComplete={(data) => {
@@ -952,7 +1006,8 @@ export default function App() {
           }} 
         />
       )}
-      {step === 'result' && <Result answers={answers} onRetake={() => setStep('landing')} />}
+      
+      {step === 'result' && <Result answers={answers} userData={userData} onRetake={() => setStep('landing')} />}
     </>
   );
 }
