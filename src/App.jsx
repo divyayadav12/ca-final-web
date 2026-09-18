@@ -272,7 +272,7 @@ const Landing = ({ onStart, onNav }) => {
     </div>
   );
 };
-const Assessment = ({ onComplete, selectedGroups }) => {
+const Assessment = ({ onComplete }) => {
   const [currentStep, setCurrentStep] = useState(1);
   
   React.useEffect(() => {
@@ -280,8 +280,7 @@ const Assessment = ({ onComplete, selectedGroups }) => {
   }, [currentStep]);
   const [answers, setAnswers] = useState({}); // { qId: { FR: val, AFM: val... } or single value }
 
-  // Only show subjects from selected groups
-  const activeSubjects = SUBJECTS.filter(s => selectedGroups.includes(s.group));
+
 
   const question = QUESTIONS[currentStep - 1];
 
@@ -306,7 +305,9 @@ const Assessment = ({ onComplete, selectedGroups }) => {
     const qAns = answers[question.id];
     if (question.type === 'matrix') {
       if (!qAns) return false;
-      return activeSubjects.every(s => qAns[s.id] !== undefined);
+      const g1Done = GROUP1_SUBJECTS.every(s => qAns[s.id] !== undefined);
+      const g2Done = GROUP2_SUBJECTS.every(s => qAns[s.id] !== undefined);
+      return g1Done || g2Done;
     } else {
       return qAns !== undefined;
     }
@@ -407,22 +408,18 @@ const Assessment = ({ onComplete, selectedGroups }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {(() => {
-                    const rows = [];
-                    const showBoth = selectedGroups.includes(1) && selectedGroups.includes(2);
-                    [1, 2].forEach(grp => {
-                      if (!selectedGroups.includes(grp)) return;
-                      if (showBoth) {
-                        rows.push(
-                          <tr key={`grp-header-${grp}`} className="bg-[#1a2b4b]">
-                            <td colSpan={question.options.length + 1} className="px-3 py-1.5 text-[10px] md:text-xs font-bold text-white uppercase tracking-widest">
-                              Group {grp} — {grp === 1 ? 'FR · AFM · Audit' : 'DT · IDT · IBS'}
-                            </td>
-                          </tr>
-                        );
-                      }
-                      SUBJECTS.filter(s => s.group === grp).forEach((subject) => {
-                        const row = (
+                  {[1, 2].map(grp => {
+                    const grpSubjects = SUBJECTS.filter(s => s.group === grp);
+                    const grpDone = grpSubjects.every(s => answers[question.id]?.[s.id] !== undefined);
+                    return (
+                      <React.Fragment key={grp}>
+                        <tr className={`${grpDone ? 'bg-green-700' : 'bg-[#1a2b4b]'} transition-colors`}>
+                          <td colSpan={question.options.length + 1} className="px-3 py-1.5 text-[10px] md:text-xs font-bold text-white uppercase tracking-widest">
+                            Group {grp} — {grp === 1 ? 'FR · AFM · Audit' : 'DT · IDT · IBS'}
+                            {grpDone && <span className="ml-2 normal-case font-normal opacity-80">✓ Complete</span>}
+                          </td>
+                        </tr>
+                        {grpSubjects.map((subject) => (
                           <tr key={subject.id} className="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
                             <td className="p-2 md:p-4 font-medium text-[#1a2b4b] text-[10px] md:text-sm leading-tight">{subject.name}</td>
                             {question.options.map((opt, oIdx) => {
@@ -440,12 +437,10 @@ const Assessment = ({ onComplete, selectedGroups }) => {
                               );
                             })}
                           </tr>
-                        );
-                        rows.push(row);
-                      });
-                    });
-                    return rows;
-                  })()}
+                        ))}
+                      </React.Fragment>
+                    );
+                  })}
                 </tbody>
               </table>
             ) : (
@@ -1061,17 +1056,6 @@ const UserInfoForm = ({ onSubmit, onBack }) => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
   const [formData, setFormData] = useState({ name: '', phone: '', email: '' });
-  const [selectedGroups, setSelectedGroups] = useState([1, 2]);
-
-  const toggleGroup = (grp) => {
-    setSelectedGroups(prev => {
-      if (prev.includes(grp)) {
-        if (prev.length === 1) return prev; // must have at least one
-        return prev.filter(g => g !== grp);
-      }
-      return [...prev, grp].sort();
-    });
-  };
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (e) => {
@@ -1099,7 +1083,7 @@ const UserInfoForm = ({ onSubmit, onBack }) => {
     
     setTimeout(() => {
       setIsSubmitting(false);
-      onSubmit({ ...formData, selectedGroups });
+      onSubmit(formData);
     }, 400);
   };
 
@@ -1124,30 +1108,6 @@ const UserInfoForm = ({ onSubmit, onBack }) => {
             <input required type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full bg-black border border-gray-700 rounded-lg p-3 text-white focus:border-[#e51c24] outline-none transition-colors" placeholder="student@example.com" />
           </div>
 
-          {/* Group Selection */}
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">Which CA Final Group are you appearing for?</label>
-            <div className="flex gap-3">
-              {[1, 2].map(grp => (
-                <button
-                  key={grp}
-                  type="button"
-                  onClick={() => toggleGroup(grp)}
-                  className={`flex-1 py-3 px-4 rounded-lg border-2 font-bold text-sm transition-all ${
-                    selectedGroups.includes(grp)
-                      ? 'border-[#e51c24] bg-[#e51c24] text-white'
-                      : 'border-gray-600 bg-gray-800 text-gray-300 hover:border-gray-400'
-                  }`}
-                >
-                  Group {grp}
-                  <div className="text-[10px] font-normal mt-0.5 opacity-80">
-                    {grp === 1 ? 'FR · AFM · Audit' : 'DT · IDT · IBS'}
-                  </div>
-                </button>
-              ))}
-            </div>
-            <p className="text-gray-500 text-xs mt-1.5">Select one or both groups. You can fill only your selected group(s).</p>
-          </div>
           
           <div className="pt-4 flex gap-4">
             <button type="button" onClick={onBack} className="flex-1 bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 rounded-lg transition-colors">Back</button>
@@ -1167,7 +1127,6 @@ export default function App() {
   const [step, setStep] = useState('landing');
   const [answers, setAnswers] = useState(null);
   const [userData, setUserData] = useState(null);
-  const [selectedGroups, setSelectedGroups] = useState([1, 2]);
 
   return (
     <>
@@ -1181,9 +1140,7 @@ export default function App() {
         <UserInfoForm 
           onBack={() => setStep('landing')}
           onSubmit={(data) => {
-            const { selectedGroups: grps, ...rest } = data;
-            setUserData(rest);
-            setSelectedGroups(grps || [1, 2]);
+            setUserData(data);
             setStep('assessment');
           }} 
         />
@@ -1191,7 +1148,6 @@ export default function App() {
 
       {step === 'assessment' && (
         <Assessment 
-          selectedGroups={selectedGroups}
           onComplete={(data) => {
             setAnswers(data);
             setStep('result');
