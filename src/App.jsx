@@ -522,21 +522,32 @@ const Result = ({ answers, userData, onRetake }) => {
       const pdf = new jsPDF('p', 'mm', 'a4');
       const pdfWidth = pdf.internal.pageSize.getWidth(); // 210 mm
       const pageHeight = pdf.internal.pageSize.getHeight(); // 297 mm
-      const imgHeight = (canvas.height * pdfWidth) / canvas.width;
 
-      let heightLeft = imgHeight;
-      let position = 0;
+      let renderWidth = pdfWidth;
+      let renderHeight = (canvas.height * pdfWidth) / canvas.width;
 
-      // Add page 1
-      pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, imgHeight);
-      heightLeft -= pageHeight;
-
-      // Add subsequent pages for complete report without cutting off
-      while (heightLeft > 5) {
-        position -= pageHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, imgHeight);
+      // If height slightly exceeds 1 page (up to 30%), scale down to fit cleanly on 1 single page!
+      if (renderHeight > pageHeight && renderHeight <= pageHeight * 1.30) {
+        const scaleFactor = pageHeight / renderHeight;
+        renderWidth = renderWidth * scaleFactor;
+        renderHeight = pageHeight;
+        const xOffset = (pdfWidth - renderWidth) / 2;
+        pdf.addImage(imgData, 'JPEG', xOffset, 0, renderWidth, renderHeight);
+      } else if (renderHeight <= pageHeight) {
+        pdf.addImage(imgData, 'JPEG', 0, 0, renderWidth, renderHeight);
+      } else {
+        // Multi-page only if substantial content (>40mm) remains
+        let heightLeft = renderHeight;
+        let position = 0;
+        pdf.addImage(imgData, 'JPEG', 0, position, renderWidth, renderHeight);
         heightLeft -= pageHeight;
+
+        while (heightLeft > 40) {
+          position -= pageHeight;
+          pdf.addPage();
+          pdf.addImage(imgData, 'JPEG', 0, position, renderWidth, renderHeight);
+          heightLeft -= pageHeight;
+        }
       }
 
       const fileName = userData?.name
