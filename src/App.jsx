@@ -510,28 +510,32 @@ const Result = ({ answers, userData, onRetake }) => {
   const handleDownload = async () => {
     if (!dashboardRef.current) return;
     try {
-      const canvas = await html2canvas(dashboardRef.current, {
+      const element = dashboardRef.current;
+      const canvas = await html2canvas(element, {
         scale: 2,
         useCORS: true,
         logging: false,
-        backgroundColor: '#f8fafc'
+        backgroundColor: '#f8fafc',
+        windowWidth: 1280
       });
-      const imgData = canvas.toDataURL('image/png');
+      const imgData = canvas.toDataURL('image/jpeg', 0.98);
       const pdf = new jsPDF('p', 'mm', 'a4');
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-      const pageHeight = pdf.internal.pageSize.getHeight();
+      const pdfWidth = pdf.internal.pageSize.getWidth(); // 210 mm
+      const pageHeight = pdf.internal.pageSize.getHeight(); // 297 mm
+      const imgHeight = (canvas.height * pdfWidth) / canvas.width;
 
-      let heightLeft = pdfHeight;
+      let heightLeft = imgHeight;
       let position = 0;
 
-      pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, pdfHeight);
+      // Add page 1
+      pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, imgHeight);
       heightLeft -= pageHeight;
 
-      while (heightLeft > 0) {
-        position = heightLeft - pdfHeight;
+      // Add subsequent pages for complete report without cutting off
+      while (heightLeft > 5) {
+        position -= pageHeight;
         pdf.addPage();
-        pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, pdfHeight);
+        pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, imgHeight);
         heightLeft -= pageHeight;
       }
 
@@ -710,8 +714,8 @@ const Result = ({ answers, userData, onRetake }) => {
       </aside>
 
       {/* Main Dashboard */}
-      <main ref={dashboardRef} className="flex-1 bg-[#f8fafc] lg:rounded-l-2xl overflow-hidden flex flex-col h-screen overflow-y-auto relative">
-        <div className="p-6 md:p-8">
+      <main className="flex-1 bg-[#f8fafc] lg:rounded-l-2xl overflow-hidden flex flex-col h-screen overflow-y-auto relative">
+        <div ref={dashboardRef} className="p-6 md:p-8">
           
           {/* Official Report Header Banner - Always captured in PDF & Dashboard */}
           <div className="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-gray-200 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
