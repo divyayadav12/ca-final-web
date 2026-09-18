@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
-import { Target, BarChart2, ClipboardList, Rocket, Lock, BookOpen, RefreshCw, AlertCircle, Trophy, FileText, Activity, CheckCircle2, AlertTriangle, Play } from 'lucide-react';
+import { Target, BarChart2, ClipboardList, Rocket, Lock, BookOpen, RefreshCw, AlertCircle, Trophy, FileText, Activity, CheckCircle2, AlertTriangle, Play, Phone, Mail, Globe, MapPin } from 'lucide-react';
 
 // --- DATA ---
 const SUBJECTS = [
@@ -525,8 +525,16 @@ const Result = ({ answers, onRetake }) => {
   // Max possible per subject per question is generally 4 (value).
   // Some matrix questions have 4 options (1-4).
   
-  // Calculate average per subject
-  const subjectScores = SUBJECTS.map(sub => {
+  // Determine which subjects were actually answered by the candidate
+  const answeredSubjectIds = new Set();
+  QUESTIONS.forEach(q => {
+    if (q.type === 'matrix' && answers[q.id]) {
+      Object.keys(answers[q.id]).forEach(id => answeredSubjectIds.add(id));
+    }
+  });
+
+  // Calculate average per subject — only for answered subjects
+  const subjectScores = SUBJECTS.filter(s => answeredSubjectIds.has(s.id)).map(sub => {
     let subTotal = 0;
     let count = 0;
     
@@ -890,6 +898,63 @@ const Result = ({ answers, onRetake }) => {
               <button className="w-full bg-[#e51c24] hover:bg-red-700 text-white font-bold py-4 rounded-xl flex items-center justify-center transition-colors shadow-lg shadow-red-500/20">
                 Keep Going, You Can Do This! <span className="ml-2">→</span>
               </button>
+            </div>
+
+            {/* Connect with FAST */}
+            <div className="bg-[#111] rounded-2xl shadow-sm border border-gray-800 p-6 mt-0">
+              <div className="flex items-center mb-5">
+                <FastLogo className="max-w-[100px]" />
+                <div className="ml-4">
+                  <div className="text-white font-black text-lg leading-tight">Your Next Step</div>
+                  <div className="text-gray-400 text-sm font-medium">Connect with F.A.S.T. and get expert guidance</div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+                <a href="tel:+919584510000" className="flex items-center bg-gray-900 border border-gray-700 rounded-xl p-4 hover:border-[#e51c24] transition-colors group">
+                  <div className="w-10 h-10 rounded-full bg-[#e51c24] flex items-center justify-center mr-3 shrink-0">
+                    <Phone className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <div className="text-gray-400 text-xs font-medium mb-0.5">Call Us</div>
+                    <div className="text-white font-bold text-sm group-hover:text-[#e51c24] transition-colors">+91 9584510000</div>
+                  </div>
+                </a>
+
+                <a href="mailto:faststudentcare@gmail.com" className="flex items-center bg-gray-900 border border-gray-700 rounded-xl p-4 hover:border-[#e51c24] transition-colors group">
+                  <div className="w-10 h-10 rounded-full bg-[#e51c24] flex items-center justify-center mr-3 shrink-0">
+                    <Mail className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <div className="text-gray-400 text-xs font-medium mb-0.5">Email Us</div>
+                    <div className="text-white font-bold text-sm group-hover:text-[#e51c24] transition-colors">faststudentcare@gmail.com</div>
+                  </div>
+                </a>
+
+                <a href="https://www.fast.edu.in/" target="_blank" rel="noreferrer" className="flex items-center bg-gray-900 border border-gray-700 rounded-xl p-4 hover:border-[#e51c24] transition-colors group">
+                  <div className="w-10 h-10 rounded-full bg-[#e51c24] flex items-center justify-center mr-3 shrink-0">
+                    <Globe className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <div className="text-gray-400 text-xs font-medium mb-0.5">Website</div>
+                    <div className="text-white font-bold text-sm group-hover:text-[#e51c24] transition-colors">www.fast.edu.in</div>
+                  </div>
+                </a>
+
+                <div className="flex items-center bg-gray-900 border border-gray-700 rounded-xl p-4">
+                  <div className="w-10 h-10 rounded-full bg-[#e51c24] flex items-center justify-center mr-3 shrink-0">
+                    <MapPin className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <div className="text-gray-400 text-xs font-medium mb-0.5">Address</div>
+                    <div className="text-white text-xs leading-snug">M1 Trade Center, South Tukoganj,<br/>Indore, 452001 MP</div>
+                  </div>
+                </div>
+              </div>
+
+              <a href="https://www.fast.edu.in/" target="_blank" rel="noreferrer" className="block w-full bg-[#e51c24] hover:bg-red-700 text-white font-bold py-4 rounded-xl text-center transition-colors shadow-lg shadow-red-500/20 text-base">
+                Visit F.A.S.T. Website →
+              </a>
             </div>
 
           </div>
