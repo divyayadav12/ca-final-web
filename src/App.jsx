@@ -285,20 +285,34 @@ const Assessment = ({ onComplete }) => {
   const question = QUESTIONS[currentStep - 1];
 
   const handleMatrixChange = (subjectId, value) => {
-    setAnswers(prev => ({
-      ...prev,
-      [question.id]: {
-        ...(prev[question.id] || {}),
-        [subjectId]: value
+    setAnswers(prev => {
+      const currentQ = { ...(prev[question.id] || {}) };
+      if (currentQ[subjectId] === value) {
+        // Deselect if already selected
+        delete currentQ[subjectId];
+      } else {
+        currentQ[subjectId] = value;
       }
-    }));
+      return {
+        ...prev,
+        [question.id]: currentQ
+      };
+    });
   };
 
   const handleSingleChange = (value) => {
-    setAnswers(prev => ({
-      ...prev,
-      [question.id]: value
-    }));
+    setAnswers(prev => {
+      if (prev[question.id] === value) {
+        // Deselect if already selected
+        const next = { ...prev };
+        delete next[question.id];
+        return next;
+      }
+      return {
+        ...prev,
+        [question.id]: value
+      };
+    });
   };
 
   const canProceed = () => {
@@ -433,13 +447,17 @@ const Assessment = ({ onComplete }) => {
                             {question.options.map((opt, oIdx) => {
                               const isSelected = answers[question.id]?.[subject.id] === opt.value;
                               return (
-                                <td key={oIdx} className="p-1 md:p-4 text-center">
+                                <td 
+                                  key={oIdx} 
+                                  className="p-1 md:p-4 text-center cursor-pointer hover:bg-red-50/40 transition-colors"
+                                  onClick={() => handleMatrixChange(subject.id, opt.value)}
+                                >
                                   <input
                                     type="radio"
                                     name={`${question.id}-${subject.id}`}
-                                    className="custom-radio scale-75 md:scale-100"
+                                    className="custom-radio scale-75 md:scale-100 cursor-pointer pointer-events-none"
                                     checked={isSelected}
-                                    onChange={() => handleMatrixChange(subject.id, opt.value)}
+                                    readOnly
                                   />
                                 </td>
                               );
@@ -456,20 +474,24 @@ const Assessment = ({ onComplete }) => {
                 {question.options.map((opt, oIdx) => {
                   const isSelected = answers[question.id] === opt.value;
                   return (
-                    <label key={oIdx} className={`flex items-center p-5 rounded-xl border-2 cursor-pointer transition-all ${
-                      isSelected ? 'border-[#e51c24] bg-[#fff1f2]' : 'border-gray-200 hover:border-gray-300 bg-white'
-                    }`}>
+                    <div 
+                      key={oIdx} 
+                      onClick={() => handleSingleChange(opt.value)}
+                      className={`flex items-center p-5 rounded-xl border-2 cursor-pointer transition-all ${
+                        isSelected ? 'border-[#e51c24] bg-[#fff1f2]' : 'border-gray-200 hover:border-gray-300 bg-white'
+                      }`}
+                    >
                       <input 
                         type="radio"
                         name={`q-${question.id}`}
-                        className="custom-radio mr-4"
+                        className="custom-radio mr-4 pointer-events-none"
                         checked={isSelected}
-                        onChange={() => handleSingleChange(opt.value)}
+                        readOnly
                       />
                       <span className={`font-semibold text-lg ${isSelected ? 'text-[#e51c24]' : 'text-[#1a2b4b]'}`}>
                         {opt.text}
                       </span>
-                    </label>
+                    </div>
                   )
                 })}
               </div>
