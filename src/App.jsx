@@ -675,6 +675,15 @@ const Result = ({ answers, onRetake }) => {
       <main ref={dashboardRef} className="flex-1 bg-[#f8fafc] lg:rounded-l-2xl overflow-hidden flex flex-col h-screen overflow-y-auto relative">
         <div className="p-6 md:p-8">
           
+          {/* Mobile logo bar - only visible when sidebar is hidden */}
+          <div className="flex items-center mb-6 lg:hidden">
+            <FastLogo className="max-w-[120px]" />
+            <div className="ml-4 font-bold text-[#1a2b4b] text-base leading-tight">
+              CA Final Nov 26<br/>
+              <span className="text-gray-500 text-xs font-semibold">Reality Check</span>
+            </div>
+          </div>
+
           <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
             <div>
               <h1 className="text-3xl font-bold text-[#1a2b4b]">Your CA Final Reality Check Result</h1>
