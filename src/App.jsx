@@ -606,7 +606,7 @@ const Result = ({ answers, userData, onRetake }) => {
   
   const sylCov = calcMatrixAvg(1);
   const revStat = calcMatrixAvg(2);
-  const examPrac = calcMatrixAvg(3);
+  const examPrac = Math.round((calcMatrixAvg(3) + calcMatrixAvg(5)) / 2);
   const execution = answers[9] ? Math.round((answers[9] / 4) * 100) : 0;
   const readiness = answers[10] ? Math.round((answers[10] / 4) * 100) : 0;
 
@@ -1214,7 +1214,10 @@ const UserInfoForm = ({ onSubmit, onBack }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    if (!/^\d{10}$/.test(formData.phone)) {
+    const digits = formData.phone.replace(/\D/g, '');
+    const phone10 = (digits.length === 12 && digits.startsWith('91')) ? digits.slice(2) : digits;
+    
+    if (!/^\d{10}$/.test(phone10)) {
       alert('Please enter a valid 10-digit mobile number.');
       return;
     }
