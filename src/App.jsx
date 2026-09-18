@@ -951,63 +951,7 @@ const Result = ({ answers, userData, onRetake }) => {
               </button>
             </div>
 
-            {/* Official FAST Footer Banner - Captured in PDF & Dashboard */}
-            <div className="mt-8 bg-white rounded-2xl border border-gray-200 shadow-sm p-6 overflow-hidden">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4 pb-5 border-b border-gray-100">
-                <div className="flex items-center gap-4">
-                  <FastLogo className="max-w-[130px]" />
-                  <div>
-                    <div className="font-black text-[#1a2b4b] text-base leading-tight">First Attempt Success Tutorials (F.A.S.T.)</div>
-                    <div className="text-xs text-gray-500 font-medium mt-0.5">India's Leading CA Coaching & Mentorship Institute</div>
-                  </div>
-                </div>
-                <div className="text-xs font-semibold text-gray-500 italic text-center md:text-right">
-                  "Same Effort. Better Direction. Stronger You."
-                </div>
-              </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 pt-5 text-xs text-gray-600">
-                <div className="flex items-start gap-2.5">
-                  <Globe className="w-4 h-4 text-[#e51c24] shrink-0 mt-0.5" />
-                  <div>
-                    <div className="font-bold text-gray-400 uppercase tracking-wider text-[10px]">Official Website</div>
-                    <a href="https://www.fast.edu.in/" target="_blank" rel="noreferrer" className="text-[#1a2b4b] font-bold hover:text-[#e51c24] underline">
-                      www.fast.edu.in
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-2.5">
-                  <Phone className="w-4 h-4 text-[#e51c24] shrink-0 mt-0.5" />
-                  <div>
-                    <div className="font-bold text-gray-400 uppercase tracking-wider text-[10px]">Helpline</div>
-                    <a href="tel:+919584510000" className="text-[#1a2b4b] font-bold hover:text-[#e51c24]">
-                      +91 9584510000
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-2.5">
-                  <Mail className="w-4 h-4 text-[#e51c24] shrink-0 mt-0.5" />
-                  <div>
-                    <div className="font-bold text-gray-400 uppercase tracking-wider text-[10px]">Student Support</div>
-                    <a href="mailto:faststudentcare@gmail.com" className="text-[#1a2b4b] font-bold hover:text-[#e51c24] break-all">
-                      faststudentcare@gmail.com
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-2.5">
-                  <MapPin className="w-4 h-4 text-[#e51c24] shrink-0 mt-0.5" />
-                  <div>
-                    <div className="font-bold text-gray-400 uppercase tracking-wider text-[10px]">Head Office</div>
-                    <div className="text-gray-700 leading-tight">
-                      M1 Trade Center, South Tukoganj, Indore (MP) - 452001
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
 
           </div>
         </div>
