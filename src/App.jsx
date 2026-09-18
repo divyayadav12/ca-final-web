@@ -1270,7 +1270,7 @@ const UserInfoForm = ({ onSubmit, onBack }) => {
       <div className="bg-gray-900 border border-gray-800 p-6 md:p-8 rounded-2xl w-full max-w-md relative z-10 shadow-2xl">
         <FastLogo className="mb-8 scale-90 origin-left" />
         <h2 className="text-2xl font-bold mb-2">Student Details</h2>
-        <p className="text-gray-400 mb-6 text-sm">Please enter your details to start the Reality Check. Your report will be saved to our database.</p>
+        <p className="text-gray-400 mb-6 text-sm">Please enter your details to start the Reality Check.</p>
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
