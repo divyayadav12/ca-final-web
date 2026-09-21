@@ -1326,13 +1326,17 @@ const UserInfoForm = ({ onSubmit, onBack }) => {
     const validated = validateForm();
     if (!validated) return;
 
-    // Check if email already registered (Device / Local Storage check)
-    let registeredEmails = [];
+    // Check if email already registered (Device / Local Storage check + default list)
+    let registeredEmails = ['divyayadav141203@gmail.com'];
     try {
-      registeredEmails = JSON.parse(localStorage.getItem('ca_final_registered_emails') || '[]');
-    } catch (err) {
-      registeredEmails = [];
-    }
+      const stored = JSON.parse(localStorage.getItem('ca_final_registered_emails') || '[]');
+      if (Array.isArray(stored)) {
+        stored.forEach(em => {
+          const lower = String(em).toLowerCase().trim();
+          if (!registeredEmails.includes(lower)) registeredEmails.push(lower);
+        });
+      }
+    } catch (err) {}
 
     if (registeredEmails.includes(validated.email)) {
       setAlreadyRegisteredModal({ show: true, email: validated.email });
@@ -1419,7 +1423,7 @@ const UserInfoForm = ({ onSubmit, onBack }) => {
               className="w-full bg-black border border-gray-700 rounded-lg p-3 text-white focus:border-[#e51c24] outline-none transition-colors" 
               placeholder="e.g. 9826012345" 
             />
-            <div className="text-[11px] text-gray-500 mt-1">Enter valid Indian mobile number starting with 6, 7, 8, or 9</div>
+            
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-300 mb-1">Email Address</label>
@@ -1431,7 +1435,7 @@ const UserInfoForm = ({ onSubmit, onBack }) => {
               className="w-full bg-black border border-gray-700 rounded-lg p-3 text-white focus:border-[#e51c24] outline-none transition-colors" 
               placeholder="e.g. rahul.kumar@gmail.com" 
             />
-            <div className="text-[11px] text-gray-500 mt-1">Your report will be tied to this verified email address</div>
+            
           </div>
 
           <div className="pt-4 flex gap-4">
