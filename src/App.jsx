@@ -1250,18 +1250,18 @@ const UserInfoForm = ({ onSubmit, onBack }) => {
     const phone10 = (digits.length === 12 && digits.startsWith('91')) ? digits.slice(2) : digits;
 
     if (!/^[6-9]\d{9}$/.test(phone10)) {
-      setErrorMsg('Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9.');
+      setErrorMsg('Please enter a valid 10-digit mobile number');
       return null;
     }
 
     if (/^(\d)\1{9}$/.test(phone10)) {
-      setErrorMsg('Please enter a genuine mobile number (repeated digits like 9999999999 not allowed).');
+      setErrorMsg('Please enter a valid 10-digit mobile number');
       return null;
     }
 
     const dummyPhones = ['9876543210', '9898989898', '9123456789', '9000000000', '6789012345', '7890123456', '8901234567'];
     if (dummyPhones.includes(phone10)) {
-      setErrorMsg('Please enter a genuine mobile number.');
+      setErrorMsg('Please enter a valid 10-digit mobile number');
       return null;
     }
 
