@@ -1375,47 +1375,30 @@ const UserInfoForm = ({ onSubmit, onBack }) => {
     }
 
     setIsSubmitting(true);
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzlK48p9oZf2f8Y0l437bU9cproU3f3y1Pm8Y8tfHnMxfXMVKbx2cSQNfqu0t7Un23b/exec';
-    
-    try {
-      const response = await fetch(scriptURL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify({
-          ...validated,
-          action: 'register',
-          timestamp: new Date().toISOString()
-        })
-      });
 
-      try {
-        const result = await response.json();
-        if (result && (result.status === 'already_registered' || result.already_registered || result.error === 'already_registered')) {
-          setIsSubmitting(false);
-          setAlreadyRegisteredModal({ show: true, email: validated.email });
-          if (!registeredEmails.includes(validated.email)) {
-            registeredEmails.push(validated.email);
-            localStorage.setItem('ca_final_registered_emails', JSON.stringify(registeredEmails));
-          }
-          return;
-        }
-      } catch (parseErr) {
-        // if response is not JSON, proceed
-      }
-    } catch (err) {
-      console.warn('Apps Script submission notice:', err);
-    }
-
-    // Save email in registered emails list so they cannot retake
+    // Save email in registered list immediately so user cannot retake with same email
     if (!registeredEmails.includes(validated.email)) {
       registeredEmails.push(validated.email);
       localStorage.setItem('ca_final_registered_emails', JSON.stringify(registeredEmails));
     }
 
+    // Fire-and-forget sync to Google Sheets in the background (no waiting/freezing)
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzlK48p9oZf2f8Y0l437bU9cproU3f3y1Pm8Y8tfHnMxfXMVKbx2cSQNfqu0t7Un23b/exec';
+    fetch(scriptURL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({
+        ...validated,
+        action: 'register',
+        timestamp: new Date().toISOString()
+      })
+    }).catch(err => console.error('Sheet sync notice:', err));
+
     setTimeout(() => {
       setIsSubmitting(false);
       onSubmit(validated);
-    }, 400);
+    }, 300);
   };
 
   return (
@@ -1472,7 +1455,7 @@ const UserInfoForm = ({ onSubmit, onBack }) => {
           <div className="pt-4 flex gap-4">
             <button type="button" onClick={onBack} className="flex-1 bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 rounded-lg transition-colors cursor-pointer">Back</button>
             <button type="submit" disabled={isSubmitting} className={`flex-1 ${isSubmitting ? 'bg-red-900 cursor-not-allowed' : 'bg-[#e51c24] hover:bg-red-700'} text-white font-bold py-3 rounded-lg transition-colors shadow-lg shadow-red-500/20 cursor-pointer`}>
-              {isSubmitting ? 'Verifying...' : 'Start Test →'}
+              {isSubmitting ? 'Starting...' : 'Start Test →'}
             </button>
           </div>
         </form>
