@@ -1269,44 +1269,44 @@ const UserInfoForm = ({ onSubmit, onBack }) => {
     const cleanEmail = formData.email.trim().toLowerCase();
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,10}$/;
     if (!emailRegex.test(cleanEmail)) {
-      setErrorMsg('Please enter a valid email address (e.g. yourname@gmail.com).');
+      setErrorMsg('Please enter a valid email address');
       return null;
     }
 
     const parts = cleanEmail.split('@');
     if (parts.length !== 2) {
-      setErrorMsg('Invalid email format. Please enter a valid email address.');
+      setErrorMsg('Please enter a valid email address');
       return null;
     }
     const [userPart, domainPart] = parts;
 
     // Gmail usernames require at least 6 characters (Google official policy)
     if ((domainPart === 'gmail.com' || domainPart === 'googlemail.com') && userPart.length < 6) {
-      setErrorMsg('Gmail username must be at least 6 characters long (e.g. rahul.ca@gmail.com).');
+      setErrorMsg('Please enter a valid email address');
       return null;
     }
 
     if (userPart.length < 4) {
-      setErrorMsg('Email username is too short. Please enter a genuine personal email.');
+      setErrorMsg('Please enter a valid email address');
       return null;
     }
 
     // Keyboard mash / random consonant check (blocks 'qbc', 'zxcv', 'bcdf', 'qwrty')
     const lettersOnly = userPart.replace(/[^a-z]/g, '');
     if (lettersOnly.length >= 3 && !/[aeiouy]/.test(lettersOnly)) {
-      setErrorMsg('Please enter a genuine personal email address (random letter combinations not allowed).');
+      setErrorMsg('Please enter a valid email address');
       return null;
     }
 
     // Pure numbers check
     if (/^\d+$/.test(userPart)) {
-      setErrorMsg('Email username cannot be all numbers.');
+      setErrorMsg('Please enter a valid email address');
       return null;
     }
 
     // Repetitive characters check (e.g. aaaa@gmail.com)
     if (/(.)\1{3,}/.test(userPart)) {
-      setErrorMsg('Please enter a valid email address without repeated characters.');
+      setErrorMsg('Please enter a valid email address');
       return null;
     }
 
@@ -1317,7 +1317,7 @@ const UserInfoForm = ({ onSubmit, onBack }) => {
     ];
     for (const prefix of fakePrefixes) {
       if (userPart === prefix || userPart.startsWith(prefix + '.') || userPart.startsWith(prefix + '_') || userPart.startsWith(prefix + '-')) {
-        setErrorMsg('Please enter your genuine personal email address.');
+        setErrorMsg('Please enter a valid email address');
         return null;
       }
     }
