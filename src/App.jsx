@@ -1486,13 +1486,9 @@ const UserInfoForm = ({ onSubmit, onBack }) => {
               <AlertCircle className="w-8 h-8" />
             </div>
             <h3 className="text-xl font-bold text-white mb-2">Email is Already Registered</h3>
-            <p className="text-gray-300 text-sm mb-4 leading-relaxed">
+            <p className="text-gray-300 text-sm mb-6 leading-relaxed">
               The email address <span className="text-[#e51c24] font-semibold">{alreadyRegisteredModal.email}</span> has already been registered and used to take the CA Final Reality Check.
             </p>
-            <div className="bg-gray-900 border border-gray-800 rounded-xl p-3 text-xs text-gray-400 mb-6 text-left space-y-1">
-              <div>• Ek email address se <strong>sirf 1 baar</strong> test diya ja sakta hai.</div>
-              <div>• Agar aap dobara guidance chahte hain, toh kripya FAST mentors se sampark karein.</div>
-            </div>
             <div className="space-y-3">
               <button
                 onClick={() => {
