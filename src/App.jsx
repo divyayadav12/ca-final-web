@@ -1275,20 +1275,51 @@ const UserInfoForm = ({ onSubmit, onBack }) => {
 
     const parts = cleanEmail.split('@');
     if (parts.length !== 2) {
-      setErrorMsg('Invalid email format.');
+      setErrorMsg('Invalid email format. Please enter a valid email address.');
       return null;
     }
     const [userPart, domainPart] = parts;
 
-    if (userPart.length < 3) {
-      setErrorMsg('Email username must be at least 3 characters long.');
+    // Gmail usernames require at least 6 characters (Google official policy)
+    if ((domainPart === 'gmail.com' || domainPart === 'googlemail.com') && userPart.length < 6) {
+      setErrorMsg('Gmail username must be at least 6 characters long (e.g. rahul.ca@gmail.com).');
       return null;
     }
 
-    const fakePrefixes = ['test', 'dummy', 'fake', 'asdf', 'sample', 'temp', 'admin', 'user', 'unknown', 'abcd', '1234', 'abc', 'xyz', 'demo'];
-    if (fakePrefixes.includes(userPart) || /^\d+$/.test(userPart)) {
-      setErrorMsg('Please enter your genuine personal email address.');
+    if (userPart.length < 4) {
+      setErrorMsg('Email username is too short. Please enter a genuine personal email.');
       return null;
+    }
+
+    // Keyboard mash / random consonant check (blocks 'qbc', 'zxcv', 'bcdf', 'qwrty')
+    const lettersOnly = userPart.replace(/[^a-z]/g, '');
+    if (lettersOnly.length >= 3 && !/[aeiouy]/.test(lettersOnly)) {
+      setErrorMsg('Please enter a genuine personal email address (random letter combinations not allowed).');
+      return null;
+    }
+
+    // Pure numbers check
+    if (/^\d+$/.test(userPart)) {
+      setErrorMsg('Email username cannot be all numbers.');
+      return null;
+    }
+
+    // Repetitive characters check (e.g. aaaa@gmail.com)
+    if (/(.)\1{3,}/.test(userPart)) {
+      setErrorMsg('Please enter a valid email address without repeated characters.');
+      return null;
+    }
+
+    const fakePrefixes = [
+      'test', 'dummy', 'fake', 'asdf', 'sample', 'temp', 'admin', 'user', 'unknown',
+      'abcd', '1234', 'abc', 'xyz', 'demo', 'qwe', 'asd', 'zxc', 'random', 'null',
+      'none', 'email', 'mail', 'student', 'checking', 'trial', 'qbc', 'qwert'
+    ];
+    for (const prefix of fakePrefixes) {
+      if (userPart === prefix || userPart.startsWith(prefix + '.') || userPart.startsWith(prefix + '_') || userPart.startsWith(prefix + '-')) {
+        setErrorMsg('Please enter your genuine personal email address.');
+        return null;
+      }
     }
 
     // Common domain typo auto-checks
